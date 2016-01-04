@@ -1,0 +1,51 @@
+# Project: Project1
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = adventure_game_private.res
+OBJ  = main.o body.o world.o room.o game.o enemy.o item.o $(RES)
+LINKOBJ  = main.o body.o world.o room.o game.o enemy.o item.o $(RES)
+LIBS =  -L"F:/Dev-Cpp/lib" -mwindows -lalleg_s -lkernel32 -luser32 -lgdi32 -lcomdlg32 -lole32 -ldinput -lddraw -ldxguid -lwinmm -ldsound  
+INCS =  -I"F:/Dev-Cpp/include" 
+CXXINCS =  -I"F:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"F:/Dev-Cpp/include/c++/3.4.2/backward"  -I"F:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"F:/Dev-Cpp/include/c++/3.4.2"  -I"F:/Dev-Cpp/include" 
+BIN  = adventure_game.exe
+CXXFLAGS = $(CXXINCS) -DALLEGRO_STATICLINK  
+CFLAGS = $(INCS) -DALLEGRO_STATICLINK  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before adventure_game.exe all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "adventure_game.exe" $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+body.o: body.cpp
+	$(CPP) -c body.cpp -o body.o $(CXXFLAGS)
+
+world.o: world.cpp
+	$(CPP) -c world.cpp -o world.o $(CXXFLAGS)
+
+room.o: room.cpp
+	$(CPP) -c room.cpp -o room.o $(CXXFLAGS)
+
+game.o: game.cpp
+	$(CPP) -c game.cpp -o game.o $(CXXFLAGS)
+
+enemy.o: enemy.cpp
+	$(CPP) -c enemy.cpp -o enemy.o $(CXXFLAGS)
+
+item.o: item.cpp
+	$(CPP) -c item.cpp -o item.o $(CXXFLAGS)
+
+adventure_game_private.res: adventure_game_private.rc 
+	$(WINDRES) -i adventure_game_private.rc --input-format=rc -o adventure_game_private.res -O coff 
